@@ -1,381 +1,109 @@
-$primary: #de5f5f;
-$black: #555;
-$grey: #343436;
-$lightgrey: #959595;
+$primary-color: #34495e;
+$primary-color-shadow: #2c3e50;
+$secondary-color: #1abc9c;
 
-$font-serif: "ff-meta-serif-web-pro", serif;
-$font-sans: "nimbus-sans", sans-serif;
-
-$transition: all 0.3s cubic-bezier(.05, .69, .14, 1);
-
-html {
-    box-sizing: border-box;
-    font-family: $font-serif;
-    color: $black;
-    font-size: 16px;
-
-    @for $i from 1 through 20 {
-        @media (min-width: #{6.25 * $i}em) {
-            font-size: #{16 + $i}px;
-        }
-    }
-
-
+html,
+body,
+main {
+  height: 100%;
 }
 
-*,*::before,*::after {
-    box-sizing: inherit;
-    margin: 0;
-    padding: 0;
+::selection {
+  background: $primary-color;
+  color: #fff;
 }
 
-a {
-    text-decoration: none;
+// Jumbotrons 
+
+.jumbotron {
+  // Stops gaps between jumbotrons
+  padding-top: 150px;
+  padding-bottom: 150px;
+  margin-bottom: 0;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.photo-cover {
+  background: #34495e url(https://static.pexels.com/photos/36487/above-adventure-aerial-air-large.jpg) no-repeat center center / cover fixed;
+  height: 100%;
+  position: relative;
 }
 
 
-/**
- * The fixed Side 
- */
-$sideWidth: 50px;
-.side {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1000;
-    width: $sideWidth;
-    border-right: 1px dashed rgba(black,.3);
-    color: rgba(black,.5);
-    font-family: $font-sans;
-    text-transform: uppercase;
-    letter-spacing: .0875rem;
-    font-size: 10px;
-    transition: $transition;
-
-    &:hover {
-        color: rgba(black ,.5);
-    }
-
-    .side__inner {
-        position: relative;
-        height: 100%;
-        white-space: nowrap;
-    }
-
-    a {
-        color: inherit;
-        word-spacing: 0;
-        transition: $transition;
-    }
-
-    .top,
-    .bottom {
-        position: absolute;
-        left: 0;
-        transform:  rotate(-90deg) perspective(1px);
-        transform-origin: $sideWidth $sideWidth;
-        height: $sideWidth;
-        line-height: $sideWidth;
-        white-space: nowrap;
-        word-spacing: .5rem;
-    }
-
-    .top {
-        top: $sideWidth * .5;
-        text-align: right;
-        color: black;
-    }
-    .bottom {
-        top: auto;
-        bottom: $sideWidth * 1.5;
-
-        &:hover {
-            a {
-                color: rgba(black,.2);
-
-                &:hover {
-                    color: rgba(black,.8);
-                }
-            }
-        }
-    }
+.background-primary {
+  background: $primary-color;
 }
 
-/**
- * The first navigation
- */
-.anchornav {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    li {
-        display: block;
-        &::after {
-            content: '';
-            width: 1.3rem;
-            display: block;
-            height: 2px;
-            background: black;
-        }
-
-        &:last-child::after{
-            display: none;
-        }
-    }
-
-    a {
-        display: block;
-        padding: 1em 0;
-        font-family: $font-sans;
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 1.4px;
-        color: inherit;   
-        transition: $transition;
-
-        span {
-            display: inline;
-            padding: .5em 0 0;
-            opacity: .3;
-            letter-spacing: normal;
-            font-family: $font-serif;
-            text-transform: none;
-        }
-
-        &:hover {
-            color: $primary;
-            span {
-                opacity: 1;
-                color: #181818;
-            }
-        }
-    }
+.background-secondary {
+  background: $primary-color-shadow;
 }
 
-/**
- * The different sections
- */
-.section{
-    position: relative;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    min-height: 60vh;
-    width: 100%;
-    align-content: center;
-    padding: 20vh $sideWidth 20vh $sideWidth * 1.5;
-
-    svg {
-        position: absolute;
-        top: -50px;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 50px;
-
-        &.bottom {
-            bottom: 0;
-            top: auto;
-            fill: grey;
-        }
-    }
-    
-    .section__inner {
-        height: 100%;
-        max-width: 800px;
-        margin: auto auto auto 0;
-    }
-
-
-    &.section--hello {
-        background-color: #FDEF52;
-        color: #181818;        
-    }
-
-    &.section--intro {
-        background-color: white;
-        color: $black;        
-    }
-
-    &.section--about {
-        background-color: $primary;
-        color: white;
-
-        svg {
-            fill: $primary;
-        }
-    }
-
-    &.section--clients {
-        background-color: $grey;
-        color: white;
-
-        svg {
-            fill: $grey;
-        }
-    }
-
-    &.section--portfolio {
-        background-color: orange;
-        color: white;
-
-        svg {
-            top: -20px;
-            fill: orange;
-
-            &.bottom {
-                top: auto;
-                bottom: -50px;
-            }
-        }
-    }
-
-    &.section--portfolio1 {
-        background-color: #3A99D8;
-        color: white;
-
-        svg {
-            top: -50px;
-            fill: #3A99D8;
-        }
-    }
-    
-    
-    &.section--pepperhill {
-        
-
-        svg {
-            top: -50px;
-            fill: #3A99D8;
-        }
-    }
-    
-    
-
-    &.section--contact {
-        svg {
-            fill: white;
-        }
-    }
+.large {
+  font-size: 4em;
 }
 
-/**
- * Typo
- */
-h1,.h1,h2,.h2,h3,.h3,h4,.h5 {
-    font-family: $font-sans;
-    font-weight: bold;    
-    margin: 0 0 1em;
-    line-height: 1;
-    letter-spacing: -1px;
-    
-    
-    @media (min-width: 30rem) {
-        letter-spacing: -2px;
-    }
-
-    a {
-        color: inherit;
-        &:hover {
-            border-bottom: .1875rem solid;
-        }
-    }
-
-    span {
-        color: $primary;
-    }
-}
-h1,.h1 {
-    font-size: 1.2rem;
-    @media (min-width: 30rem) {
-        font-size: 2.5rem;
-    }
-}
-h2,.h2 {
-    font-size: 1.2rem;
-    @media (min-width: 30rem) {
-        font-size: 2.5rem;
-    }
+.medium {
+  font-size: 2em;
 }
 
-.pre {
-    display: inline-block;
-    font-size: 12px;
-    margin: 0;
-    opacity: .8;
-    letter-spacing: 1.4px;
-    word-spacing: .2rem;
-    text-transform: uppercase;
-    margin-bottom: 1em;
-    color: inherit;
-    //padding: 6px 5px 5px;
-    //background: rgba(black,.1);
+/* Header */
 
-    span {
-        font-size: .9em;
-        margin-right: .4em;
-        //color: $primary;
-        opacity: .5;
-    }
-
-    &:hover {
-        opacity: 1;
-    }
+.transparent {
+  background: transparent;
 }
 
-p {
-    font-size: .75rem;
-    line-height: 1.4;
-    
-    @media (min-width: 30rem) {
-        font-size: .875rem;
-    }
+.navbar-inverse {
+  transition: all 0.2s ease-in;
+}
+// Portfolio
 
-    a {
-        font-weight: bold;
-        color: inherit;
-
-        &:hover {
-            border-bottom: .1875rem solid;
-        }
-    }
+.thumbnail {
+  cursor: pointer;
+  position: relative;
+  display: flex;
 }
 
-.lead {
-    display: block;
-    font-size: .875rem;
-    margin: 0;
-
-    @media (min-width: 30rem) {
-        font-size: 1rem;
-    }
+.thumbnail-svg {
+  flex: 1 0 auto;
+  padding: .5em;
+  max-height: 6em;
 }
 
-.portfolio {
-    font-size: .75rem;
-    
-    &.block {
-        display: inline-block;
-        width: 100%;
-        
-        @media (min-width: 30rem) {    
-            width: 30%;
-        }
-    }
-        
-    .link {
-        display: block;
-        margin: 2em 0 0 0;
-        color: $black;
-        letter-spacing: 2px;
-        font-size: 12px;
-    }
-    
-    p {
-        font-size: inherit;
-        color: $grey;
-        opacity: .7;
-    }
+.thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $secondary-color;
+  opacity: 0;
+  transition: all 0.2s ease-in;
+}
+
+.thumbnail:hover .thumbnail-overlay {
+  opacity: 1;
+  transition: all 0.2s ease-in;
+}
+// Projects Pages
+
+.full-screen {
+  background: #eee;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  // Avoids leaving portfolio screen stuck up
+  overflow-y: scroll;
+}
+
+.close-window {
+  cursor: pointer;
 }
