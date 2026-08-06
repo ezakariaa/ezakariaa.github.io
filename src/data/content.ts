@@ -47,6 +47,7 @@ export const projets: Projet[] = [
       "Lecteur de radios en ligne : streaming continu, recherche de stations et interface responsive pensée pour l'écoute au long cours.",
     stack: ["HTML", "CSS", "JavaScript"],
     lien: "https://github.com/ezakariaa/ZRadio",
+    demo: "https://ezakariaa.github.io/ZRadio/",
     annee: "2026",
   },
   {
@@ -71,6 +72,7 @@ export const projets: Projet[] = [
       "Outil de téléchargement par lots depuis Internet Archive : file d'attente, reprise et suivi de progression en temps réel.",
     stack: ["TypeScript", "Node.js"],
     lien: "https://github.com/ezakariaa/Internet-Archive-Downloader",
+    demo: "https://ezakariaa.github.io/Internet-Archive-Downloader/",
     annee: "2026",
   },
   {
@@ -79,6 +81,7 @@ export const projets: Projet[] = [
       "Organisation de bibliothèque musicale locale : tri automatique, métadonnées et création de playlists.",
     stack: ["TypeScript", "Node.js"],
     lien: "https://github.com/ezakariaa/MegaMix",
+    demo: "https://ezakariaa.github.io/MegaMix/",
     annee: "2025",
   },
   {
