@@ -44,8 +44,8 @@ export const projets: Projet[] = [
   {
     nom: "ZRadio",
     description:
-      "Lecteur de radios en ligne : streaming continu, recherche de stations et interface responsive pensée pour l'écoute au long cours.",
-    stack: ["HTML", "CSS", "JavaScript"],
+      "Webradio personnelle : diffusion en continu de ma bibliothèque musicale hébergée sur mon PC, servie via localhost et Caddy. Interface responsive pensée pour l'écoute au long cours.",
+    stack: ["HTML", "CSS", "JavaScript", "Caddy", "Auto-hébergé"],
     lien: "https://github.com/ezakariaa/ZRadio",
     demo: "https://ezakariaa.github.io/ZRadio/",
     annee: "2026",
