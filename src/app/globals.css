@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #08070d;
+  --color-surface: #0e0c16;
+  --color-elevated: #15121f;
+  --color-line: #241f36;
+
+  --color-violet-glow: #8b5cf6;
+  --color-violet-soft: #a78bfa;
+  --color-violet-deep: #6d28d9;
+
+  --color-muted: #a6a0bd;
+  --color-faint: #6f6885;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), var(--font-inter), sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: #ece9f5;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-violet-deep);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-violet-deep);
+}
+
+/* Grille de fond discrète, façon Framer */
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+/* Halo violet du hero */
+.aurora {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 0%,
+    rgba(139, 92, 246, 0.28),
+    rgba(109, 40, 217, 0.08) 45%,
+    transparent 70%
+  );
+}
+
+/* Défilement infini du bandeau de compétences */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+}
