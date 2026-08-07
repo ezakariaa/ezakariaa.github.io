@@ -51,11 +51,12 @@ export const projets: Projet[] = [
     annee: "2026",
   },
   {
-    nom: "ToonsFlix",
+    nom: "AnimeBase",
     description:
-      "Plateforme de streaming dédiée à l'animation : catalogue, fiches détaillées et navigation fluide dans une UI sombre.",
-    stack: ["React", "TypeScript", "API REST"],
-    lien: "https://github.com/ezakariaa/ToonsFlix",
+      "Catalogue d'animés alimenté par l'API AniList : recherche, filtres par genre et format, et fiches détaillées dans une interface sombre.",
+    stack: ["React", "TypeScript", "Express", "API AniList"],
+    lien: "https://github.com/ezakariaa/AnimeBase",
+    demo: "https://ezakariaa.github.io/AnimeBase/",
     annee: "2026",
   },
   {
