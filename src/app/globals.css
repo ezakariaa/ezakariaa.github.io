@@ -51,6 +51,10 @@ html[data-theme="light"] .text-white:not(.bg-violet-glow):not(.bg-violet-deep) {
   color: var(--color-text) !important;
 }
 
+html[data-theme="light"] [class~="hover:text-white"]:hover {
+  color: var(--color-text) !important;
+}
+
 html[data-theme="light"] .bg-violet-glow.text-white,
 html[data-theme="light"] .bg-violet-deep.text-white {
   color: #fff !important;
