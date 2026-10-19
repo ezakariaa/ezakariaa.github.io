@@ -32,7 +32,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try { const theme = localStorage.getItem("portfolio-theme"); if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme; } catch {}',
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

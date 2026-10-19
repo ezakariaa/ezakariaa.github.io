@@ -363,9 +363,9 @@ export default function Projets() {
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label={`Visiter le site ${site.nom}`}
-                className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-glow"
+                className="grid grid-cols-[minmax(100px,0.85fr)_minmax(0,1.15fr)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-glow"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-elevated">
+                <div className="relative min-h-40 overflow-hidden bg-elevated">
                   <Image
                     src={site.capture}
                     alt={`Capture d'écran du site ${site.nom}`}
@@ -374,7 +374,7 @@ export default function Projets() {
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="p-5">
+                <div className="min-w-0 self-center p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="font-display text-lg font-semibold text-white">{site.nom}</h3>
                     <span aria-hidden="true" className="text-violet-soft transition-transform group-hover:translate-x-1">

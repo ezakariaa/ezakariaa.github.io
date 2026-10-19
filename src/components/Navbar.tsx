@@ -7,6 +7,7 @@ import { navigation, profile } from "@/data/content";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [ouvert, setOuvert] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -14,6 +15,21 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+  }, []);
+
+  function basculerTheme() {
+    const suivant = theme === "dark" ? "light" : "dark";
+    setTheme(suivant);
+    document.documentElement.dataset.theme = suivant;
+    try {
+      window.localStorage.setItem("portfolio-theme", suivant);
+    } catch {
+      // Le thème reste actif pour la session même si le stockage est indisponible.
+    }
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4">
@@ -41,7 +57,7 @@ export default function Navbar() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="rounded-lg px-3 py-1.5 text-sm text-muted transition-colors hover:bg-white/5 hover:text-white"
+                  className="rounded-lg px-3 py-1.5 text-sm text-muted transition-colors hover:bg-elevated/60 hover:text-white"
                 >
                   {item.label}
                 </a>
@@ -56,6 +72,25 @@ export default function Navbar() {
             >
               Me contacter
             </a>
+            <button
+              type="button"
+              onClick={basculerTheme}
+              aria-label={`Activer le thème ${theme === "dark" ? "clair" : "sombre"}`}
+              aria-pressed={theme === "light"}
+              title={`Activer le thème ${theme === "dark" ? "clair" : "sombre"}`}
+              className="flex size-10 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:bg-elevated hover:text-white focus-visible:ring-2 focus-visible:ring-violet-glow focus-visible:outline-none"
+            >
+              {theme === "dark" ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" strokeLinecap="round" />
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                  <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </button>
             <button
               type="button"
               onClick={() => setOuvert((v) => !v)}

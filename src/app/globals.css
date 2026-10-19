@@ -19,6 +19,19 @@
 
 :root {
   color-scheme: dark;
+  --color-text: #ece9f5;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-ink: #f7f6f9;
+  --color-surface: #ffffff;
+  --color-elevated: #f0eef4;
+  --color-line: #dedbe5;
+  --color-violet-soft: #6428b5;
+  --color-muted: #575361;
+  --color-faint: #76717e;
+  --color-text: #201c28;
 }
 
 html {
@@ -28,10 +41,19 @@ html {
 
 body {
   background-color: var(--color-ink);
-  color: #ece9f5;
+  color: var(--color-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+html[data-theme="light"] .text-white:not(.bg-violet-glow):not(.bg-violet-deep) {
+  color: var(--color-text) !important;
+}
+
+html[data-theme="light"] .bg-violet-glow.text-white,
+html[data-theme="light"] .bg-violet-deep.text-white {
+  color: #fff !important;
 }
 
 ::selection {
