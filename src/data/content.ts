@@ -31,67 +31,144 @@ export const navigation = [
   { label: "Contact", href: "#contact" },
 ];
 
-export type Projet = {
-  nom: string;
-  description: string;
-  stack: string[];
-  lien: string;
-  demo?: string;
-  annee: string;
+/** Configuration de la vitrine GitHub (dépôts récupérés en direct côté navigateur). */
+export const github = {
+  utilisateur: "ezakariaa",
+  /** Dépôts ignorés dans la vitrine (exercices, tutoriels, profil, site du portfolio). */
+  exclureNoms: [
+    "ezakariaa",
+    "ezakariaa.github.io",
+    "OpenclassroomsProject",
+    "FreeCodeCamp",
+    "mlearn",
+    "Exercices-Solutions",
+    "AirBnB_clone_v2",
+    "Fix_My_Code_Challenge",
+    "binary_trees",
+    "hello-world",
+    "sorting_algorithms",
+    "RSA-Factoring-Challenge",
+    "simple_shell",
+    "printf",
+    "HackerRank",
+    "zero_day",
+    "Little-Projects",
+    "Little-Games",
+    "The-Maze-Project",
+    "Git-ACP",
+  ],
+  /** Préfixes ignorés : toute la série d'exercices ALX et les tutoriels GitHub Skills. */
+  exclurePrefixes: ["alx-", "skills-"],
 };
 
+export type Projet = {
+  /** Nom exact du dépôt GitHub — sert de clé pour enrichir les données de l'API. */
+  repo: string;
+  /** Titre affiché si différent du nom du dépôt. */
+  nom?: string;
+  /** Description en français, prioritaire sur celle de GitHub. */
+  description?: string;
+  /** Stack affichée ; à défaut le langage principal détecté par GitHub est utilisé. */
+  stack?: string[];
+  demo?: string;
+  /** Année de repli si l'API GitHub est indisponible. */
+  annee?: string;
+};
+
+/**
+ * Projets mis en avant : toujours affichés, même si l'API GitHub est injoignable.
+ * Les autres dépôts publics apparaissent automatiquement dès leur création.
+ */
 export const projets: Projet[] = [
   {
-    nom: "ZRadio",
+    repo: "sublimaroc",
+    nom: "Sublimaroc",
+    description:
+      "Site vitrine de la marque Sublimaroc : présentation des services, identité visuelle et expérience de navigation moderne pour renforcer la présence en ligne.",
+    stack: ["React", "TypeScript", "Firebase", "Design", "Web vitrine"],
+    demo: "https://sublimaroc-580d3.firebaseapp.com/",
+    annee: "2025",
+  },
+  {
+    repo: "ZRadio",
     description:
       "Webradio personnelle : diffusion en continu de ma bibliothèque musicale hébergée sur mon PC, servie via localhost et Caddy. Interface responsive pensée pour l'écoute au long cours.",
     stack: ["HTML", "CSS", "JavaScript", "Caddy", "Auto-hébergé"],
-    lien: "https://github.com/ezakariaa/ZRadio",
     demo: "https://ezakariaa.github.io/ZRadio/",
     annee: "2026",
   },
   {
-    nom: "AnimeBase",
+    repo: "AnimeBase",
     description:
       "Catalogue d'animés alimenté par l'API AniList : recherche, filtres par genre et format, et fiches détaillées dans une interface sombre.",
     stack: ["React", "TypeScript", "Express", "API AniList"],
-    lien: "https://github.com/ezakariaa/AnimeBase",
     demo: "https://ezakariaa.github.io/AnimeBase/",
     annee: "2026",
   },
   {
-    nom: "PAKU",
+    repo: "PAKU",
     description:
       "Lecteur de manga multi-format (PDF, CBZ, RAR, ZIP) avec gestion de bibliothèque locale et reprise de lecture.",
     stack: ["Python", "Desktop"],
-    lien: "https://github.com/ezakariaa/PAKU",
     annee: "2026",
   },
   {
+    repo: "Internet-Archive-Downloader",
     nom: "Internet Archive Downloader",
     description:
       "Outil de téléchargement par lots depuis Internet Archive : file d'attente, reprise et suivi de progression en temps réel.",
     stack: ["TypeScript", "Node.js"],
-    lien: "https://github.com/ezakariaa/Internet-Archive-Downloader",
     demo: "https://ezakariaa.github.io/Internet-Archive-Downloader/",
     annee: "2026",
   },
   {
-    nom: "MegaMix",
+    repo: "MegaMix",
     description:
       "Organisation de bibliothèque musicale locale : tri automatique, métadonnées et création de playlists.",
     stack: ["TypeScript", "Node.js"],
-    lien: "https://github.com/ezakariaa/MegaMix",
     demo: "https://ezakariaa.github.io/MegaMix/",
     annee: "2025",
   },
   {
-    nom: "KoraMeet",
+    repo: "KoraMeet",
     description:
       "« Meet players. Play anywhere. » — application de mise en relation entre joueurs de foot pour organiser des matchs.",
     stack: ["React", "Firebase"],
-    lien: "https://github.com/ezakariaa/KoraMeet",
     annee: "2025",
+  },
+];
+
+export type SiteProjet = {
+  nom: string;
+  url: string;
+  capture: string;
+  description: string;
+};
+
+export const sitesProjets: SiteProjet[] = [
+  {
+    nom: "RegExport Conseil",
+    url: "https://regexport-conseil.fr/",
+    capture: "/sites/regexport-conseil.jpg",
+    description: "Conseil réglementaire pour l'export agroalimentaire hors UE.",
+  },
+  {
+    nom: "REC-CRM",
+    url: "https://crm.regexport-conseil.fr/",
+    capture: "/sites/rec-crm.jpg",
+    description: "Espace de gestion et de suivi pour les équipes RegExport.",
+  },
+  {
+    nom: "HubExport",
+    url: "https://hubexport.fr/",
+    capture: "/sites/hubexport.jpg",
+    description: "Plateforme de mise en relation des prestataires de l'export.",
+  },
+  {
+    nom: "Marwa Hajj Omra",
+    url: "https://www.marwahajjomra.com/",
+    capture: "/sites/marwa-hajj-omra.jpg",
+    description: "Site de présentation de voyages Hajj et Omra.",
   },
 ];
 
