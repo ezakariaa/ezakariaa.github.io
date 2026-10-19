@@ -134,12 +134,13 @@ export default function Projets() {
   }, [menuOuvert]);
 
   const depotsTries = useMemo(() => trierDepots(depots, tri), [depots, tri]);
+  const depotsVisibles = useMemo(() => depotsTries.slice(0, 6), [depotsTries]);
   const labelTri = optionsTri.find((option) => option.valeur === tri)?.label ?? "";
 
   return (
     <section id="projets" className="relative mx-auto max-w-6xl px-6 py-24">
       <SectionTitle
-        eyebrow="Projets"
+        eyebrow="Projets & Dépôts GitHub"
         titre="Une sélection de ce que je construis"
         sousTitre="Des applications web et outils que je conçois, développe et déploie de bout en bout."
       />
@@ -149,8 +150,8 @@ export default function Projets() {
           {erreur ??
             (chargement
               ? "Synchronisation avec GitHub…"
-              : `${depotsTries.length} dépôt${depotsTries.length > 1 ? "s" : ""} synchronisé${
-                  depotsTries.length > 1 ? "s" : ""
+              : `${depotsVisibles.length} projet${depotsVisibles.length > 1 ? "s" : ""} affiché${
+                  depotsVisibles.length > 1 ? "s" : ""
                 } depuis GitHub`)}
         </p>
 
@@ -220,11 +221,7 @@ export default function Projets() {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {depotsTries.map((depot, i) => {
-          // Toujours 3 rangees pleines : 3 cartes en mobile, 6 en tablette, 9 en grand ecran.
-          const affichage =
-            i < 3 ? "flex" : i < 6 ? "hidden sm:flex" : i < 9 ? "hidden lg:flex" : "hidden";
-
+        {depotsVisibles.map((depot, i) => {
           return (
             <motion.article
               key={depot.repo}
@@ -232,7 +229,7 @@ export default function Projets() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.55, delay: (i % 3) * 0.08 }}
-              className={`group relative ${affichage} flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-violet-deep`}
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-violet-deep"
             >
               <div className="pointer-events-none absolute -top-24 -right-24 size-56 rounded-full bg-violet-glow/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
 
