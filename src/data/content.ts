@@ -143,6 +143,7 @@ export type SiteProjet = {
   url: string;
   capture: string;
   description: string;
+  technologies: string[];
 };
 
 export const sitesProjets: SiteProjet[] = [
@@ -151,24 +152,35 @@ export const sitesProjets: SiteProjet[] = [
     url: "https://regexport-conseil.fr/",
     capture: "/sites/regexport-conseil.jpg",
     description: "Conseil réglementaire pour l'export agroalimentaire hors UE.",
+    technologies: ["Next.js", "React"],
   },
   {
     nom: "REC-CRM",
     url: "https://crm.regexport-conseil.fr/",
     capture: "/sites/rec-crm.jpg",
     description: "Espace de gestion et de suivi pour les équipes RegExport.",
+    technologies: ["React", "JavaScript", "CSS"],
   },
   {
     nom: "HubExport",
     url: "https://hubexport.fr/",
     capture: "/sites/hubexport.jpg",
     description: "Plateforme de mise en relation des prestataires de l'export.",
+    technologies: ["React", "JavaScript", "CSS"],
   },
   {
     nom: "Marwa Hajj Omra",
     url: "https://www.marwahajjomra.com/",
     capture: "/sites/marwa-hajj-omra.jpg",
     description: "Site de présentation de voyages Hajj et Omra.",
+    technologies: ["Bootstrap", "jQuery", "JavaScript"],
+  },
+  {
+    nom: "Sublimaroc",
+    url: "http://sublimaroc.net",
+    capture: "/sites/sublimaroc.jpg",
+    description: "Site vitrine de Sublimaroc.",
+    technologies: ["WordPress", "SeedProd"],
   },
 ];
 

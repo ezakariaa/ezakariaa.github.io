@@ -348,7 +348,7 @@ export default function Projets() {
           sousTitre="Quelques sites que j'ai conçus et développés."
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2">
           {sitesProjets.map((site, index) => (
             <motion.article
               key={site.url}
@@ -370,7 +370,7 @@ export default function Projets() {
                     src={site.capture}
                     alt={`Capture d'écran du site ${site.nom}`}
                     fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 640px) 50vw, 100vw"
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
@@ -382,6 +382,16 @@ export default function Projets() {
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{site.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-2" aria-label="Technologies utilisées">
+                    {site.technologies.map((technology) => (
+                      <span
+                        key={technology}
+                        className="rounded-md border border-line bg-elevated px-2.5 py-1 text-xs text-violet-soft"
+                      >
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </a>
             </motion.article>
