@@ -54,8 +54,9 @@ type ReleaseApi = {
 
 const CLE_CACHE = "portfolio:depots:v4";
 const DUREE_CACHE = 30 * 60 * 1000; // 30 min : évite de taper l'API à chaque visite.
-const CLE_CACHE_RELEASES = "portfolio:releases:v1";
+const CLE_CACHE_RELEASES = "portfolio:releases:v2";
 const DUREE_CACHE_RELEASES = 6 * 60 * 60 * 1000;
+const DUREE_CACHE_SANS_RELEASE = 5 * 60 * 1000;
 
 const misEnAvantParRepo = new Map<string, Projet>(
   projets.map((p) => [p.repo.toLowerCase(), p]),
@@ -191,7 +192,9 @@ function lireCacheRelease(repo: string): string | null | undefined {
       window.localStorage.getItem(CLE_CACHE_RELEASES) ?? "{}",
     ) as CacheRelease;
     const entree = cache[repo.toLowerCase()];
-    if (!entree || Date.now() - entree.horodatage > DUREE_CACHE_RELEASES) return undefined;
+    if (!entree) return undefined;
+    const dureeCache = entree.url ? DUREE_CACHE_RELEASES : DUREE_CACHE_SANS_RELEASE;
+    if (Date.now() - entree.horodatage > dureeCache) return undefined;
     return entree.url;
   } catch {
     return undefined;
