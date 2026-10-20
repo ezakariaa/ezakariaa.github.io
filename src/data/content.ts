@@ -20,7 +20,7 @@ export const profile = {
 export const liens = {
   github: "https://github.com/ezakariaa",
   site: "https://ezakariaa.github.io",
-  linkedin: "https://www.linkedin.com/in/",
+  linkedin: "https://www.linkedin.com/in/elozakaria",
   email: `mailto:${profile.email}`,
 };
 
@@ -68,6 +68,8 @@ export type Projet = {
   nom?: string;
   /** Description en français, prioritaire sur celle de GitHub. */
   description?: string;
+  /** Icône affichée à côté du titre du projet. */
+  icone?: string;
   /** Stack affichée ; à défaut le langage principal détecté par GitHub est utilisé. */
   stack?: string[];
   demo?: string;
@@ -136,6 +138,15 @@ export const projets: Projet[] = [
     stack: ["React", "Firebase"],
     annee: "2025",
   },
+  {
+    repo: "ToonsFlix",
+    description:
+      "Catalogue ToonTales pour parcourir les séries et épisodes par catégorie, consulter leurs fiches et retrouver rapidement un contenu grâce à la recherche. Interface responsive disponible en français et en anglais.",
+    icone: "🎬",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    demo: "https://ezakariaa.github.io/ToonsFlix/",
+    annee: "2026",
+  },
 ];
 
 export type SiteProjet = {
@@ -200,7 +211,7 @@ export const experiences: Experience[] = [
     actuel: true,
     taches: [
       "Conception et développement de sites web : WordPress, HTML, CSS, React, Node.js, TypeScript, Firebase, PHP.",
-      "Création de visuels, d'animations et d'interfaces modernes.",
+      "Création de visuels et d'interfaces modernes.",
       "Déploiement et hébergement de projets.",
       "Installation, réparation et maintenance de systèmes informatiques.",
       "Formations en ligne et à distance.",
@@ -286,6 +297,16 @@ export const formations: Formation[] = [
     intitule: "Informatique de Gestion",
     ecole: "INCIA — Khouribga",
     annee: "2004",
+  },
+  {
+    intitule: "Automatisation & Instrumentation Industrielle",
+    ecole: "ISTA-Khouribga",
+    annee: "1999",
+  },
+  {
+    intitule: "BAC Sciences Expérimentales",
+    ecole: "Lycée Ibn Yassine — Khouribga",
+    annee: "1996",
   },
 ];
 

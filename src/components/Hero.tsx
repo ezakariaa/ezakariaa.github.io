@@ -19,8 +19,8 @@ export default function Hero() {
           className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated/70 px-4 py-1.5 text-sm text-muted backdrop-blur"
         >
           <span className="relative flex size-2">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-violet-glow opacity-70" />
-            <span className="relative inline-flex size-2 rounded-full bg-violet-glow" />
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-500 opacity-70" />
+            <span className="relative inline-flex size-2 rounded-full bg-green-500" />
           </span>
           Disponible pour de nouveaux projets
         </motion.p>

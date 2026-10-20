@@ -6,6 +6,7 @@ import Image from "next/image";
 import { liens, sitesProjets } from "@/data/content";
 import {
   chargerDepots,
+  chargerTelechargementDerniereRelease,
   depotsDeSecours,
   optionsTri,
   trierDepots,
@@ -87,6 +88,7 @@ export default function Projets() {
   const [enDirect, setEnDirect] = useState(false);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState<string | null>(null);
+  const [telechargements, setTelechargements] = useState<Record<string, string>>({});
   const [tri, setTri] = useState<Tri>("maj");
   const [menuOuvert, setMenuOuvert] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -136,6 +138,32 @@ export default function Projets() {
   const depotsTries = useMemo(() => trierDepots(depots, tri), [depots, tri]);
   const depotsVisibles = useMemo(() => depotsTries.slice(0, 6), [depotsTries]);
   const labelTri = optionsTri.find((option) => option.valeur === tri)?.label ?? "";
+
+  useEffect(() => {
+    const controleur = new AbortController();
+
+    Promise.all(
+      depotsVisibles.map(async (depot) => {
+        try {
+          const url = await chargerTelechargementDerniereRelease(depot.repo, controleur.signal);
+          return url ? ([depot.repo, url] as const) : null;
+        } catch (cause) {
+          if (!controleur.signal.aborted) {
+            console.error(`Impossible de vérifier la dernière release de ${depot.repo}.`, cause);
+          }
+          return null;
+        }
+      }),
+    ).then((resultats) => {
+      if (controleur.signal.aborted) return;
+      setTelechargements((existants) => ({
+        ...existants,
+        ...Object.fromEntries(resultats.filter((resultat) => resultat !== null)),
+      }));
+    });
+
+    return () => controleur.abort();
+  }, [depotsVisibles]);
 
   return (
     <section id="projets" className="relative mx-auto max-w-6xl px-6 py-24">
@@ -243,7 +271,10 @@ export default function Projets() {
               />
 
               <div className="relative flex items-start justify-between gap-4">
-                <h3 className="font-display text-xl font-semibold text-white">{depot.nom}</h3>
+                <h3 className="flex items-center gap-2 font-display text-xl font-semibold text-white">
+                  {depot.icone && <span aria-hidden="true">{depot.icone}</span>}
+                  {depot.nom}
+                </h3>
                 <span className="shrink-0 text-xs text-faint">{depot.annee}</span>
               </div>
 
@@ -308,6 +339,31 @@ export default function Projets() {
                       className="flex size-9 items-center justify-center rounded-lg border border-line bg-elevated text-muted transition-colors hover:border-violet-deep hover:bg-violet-glow/10 hover:text-violet-soft"
                     >
                       <IconeGlobe />
+                    </a>
+                  )}
+                  {telechargements[depot.repo] && (
+                    <a
+                      href={telechargements[depot.repo]}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      title={`Télécharger la dernière version de ${depot.nom}`}
+                      aria-label={`Télécharger la dernière version de ${depot.nom}`}
+                      className="flex size-9 items-center justify-center rounded-lg border border-line bg-elevated text-muted transition-colors hover:border-violet-deep hover:bg-violet-glow/10 hover:text-violet-soft"
+                    >
+                      <svg
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <path d="m7 10 5 5 5-5M12 15V3" />
+                      </svg>
                     </a>
                   )}
                   <a

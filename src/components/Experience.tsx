@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { experiences, formations } from "@/data/content";
+import { experiences, formations, liens } from "@/data/content";
 import SectionTitle from "./SectionTitle";
 import Reveal from "./Reveal";
 
@@ -62,6 +62,18 @@ export default function Experience() {
           </motion.article>
         ))}
       </div>
+
+      <Reveal className="mt-8">
+        <a
+          href={liens.linkedin}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="inline-flex items-center gap-2 rounded-xl border border-line bg-elevated px-5 py-3 text-sm font-medium text-white transition-colors hover:border-violet-deep"
+        >
+          Plus d’expériences
+          <span aria-hidden="true">↗</span>
+        </a>
+      </Reveal>
 
       <Reveal className="mt-16">
         <h3 className="font-display text-lg font-semibold text-white">

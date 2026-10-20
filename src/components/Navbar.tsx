@@ -46,10 +46,9 @@ export default function Navbar() {
         <div className="flex items-center justify-between px-4 py-3">
           <a
             href="#top"
-            className="font-display text-sm font-semibold tracking-tight text-white"
+            className="whitespace-nowrap font-display text-sm font-semibold tracking-tight text-white"
           >
-            {profile.prenom}
-            <span className="text-violet-soft">.</span>
+            {profile.prenom} EL ORCHE
           </a>
 
           <ul className="hidden items-center gap-1 sm:flex">

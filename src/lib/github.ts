@@ -12,6 +12,7 @@ export type DepotAffiche = {
   repo: string;
   nom: string;
   description: string;
+  icone?: string;
   stack: string[];
   lien: string;
   demo?: string;
@@ -47,8 +48,14 @@ type DepotApi = {
   size: number;
 };
 
-const CLE_CACHE = "portfolio:depots:v2";
+type ReleaseApi = {
+  assets?: { browser_download_url: string }[];
+};
+
+const CLE_CACHE = "portfolio:depots:v4";
 const DUREE_CACHE = 30 * 60 * 1000; // 30 min : évite de taper l'API à chaque visite.
+const CLE_CACHE_RELEASES = "portfolio:releases:v1";
+const DUREE_CACHE_RELEASES = 6 * 60 * 60 * 1000;
 
 const misEnAvantParRepo = new Map<string, Projet>(
   projets.map((p) => [p.repo.toLowerCase(), p]),
@@ -78,6 +85,7 @@ function fusionner(depot: DepotApi): DepotAffiche {
     nom: manuel?.nom ?? depot.name,
     description:
       manuel?.description ?? depot.description ?? "Code source disponible sur GitHub.",
+    icone: manuel?.icone,
     stack,
     lien: depot.html_url,
     demo,
@@ -99,6 +107,7 @@ export function depotsDeSecours(): DepotAffiche[] {
       repo: projet.repo,
       nom: projet.nom ?? projet.repo,
       description: projet.description ?? "Code source disponible sur GitHub.",
+      icone: projet.icone,
       stack: projet.stack ?? [],
       lien: urlDepot(projet.repo),
       demo: projet.demo,
@@ -165,9 +174,61 @@ export async function chargerDepots(signal?: AbortSignal): Promise<DepotAffiche[
 
   const bruts = (await reponse.json()) as DepotApi[];
   const depots = bruts
-    .filter((depot) => misEnAvantParRepo.has(depot.name) || estPertinent(depot))
+    .filter(
+      (depot) => misEnAvantParRepo.has(depot.name.toLowerCase()) || estPertinent(depot),
+    )
     .map(fusionner);
 
   ecrireCache(depots);
   return depots;
+}
+
+type CacheRelease = Record<string, { horodatage: number; url: string | null }>;
+
+function lireCacheRelease(repo: string): string | null | undefined {
+  try {
+    const cache = JSON.parse(
+      window.localStorage.getItem(CLE_CACHE_RELEASES) ?? "{}",
+    ) as CacheRelease;
+    const entree = cache[repo.toLowerCase()];
+    if (!entree || Date.now() - entree.horodatage > DUREE_CACHE_RELEASES) return undefined;
+    return entree.url;
+  } catch {
+    return undefined;
+  }
+}
+
+function ecrireCacheRelease(repo: string, url: string | null) {
+  try {
+    const cache = JSON.parse(
+      window.localStorage.getItem(CLE_CACHE_RELEASES) ?? "{}",
+    ) as CacheRelease;
+    cache[repo.toLowerCase()] = { horodatage: Date.now(), url };
+    window.localStorage.setItem(CLE_CACHE_RELEASES, JSON.stringify(cache));
+  } catch {
+    // Le cache est facultatif : la recherche de release fonctionne sans stockage local.
+  }
+}
+
+export async function chargerTelechargementDerniereRelease(
+  repo: string,
+  signal?: AbortSignal,
+): Promise<string | null> {
+  const cache = lireCacheRelease(repo);
+  if (cache !== undefined) return cache;
+
+  const reponse = await fetch(
+    `https://api.github.com/repos/${github.utilisateur}/${encodeURIComponent(repo)}/releases/latest`,
+    { headers: { Accept: "application/vnd.github+json" }, signal },
+  );
+  if (reponse.status === 404) {
+    ecrireCacheRelease(repo, null);
+    return null;
+  }
+  if (!reponse.ok) throw new Error(`GitHub a répondu ${reponse.status} pour la release de ${repo}`);
+
+  const release = (await reponse.json()) as ReleaseApi;
+  const url = release.assets?.[0]?.browser_download_url ?? null;
+  if (!signal?.aborted) ecrireCacheRelease(repo, url);
+  return url;
 }
